@@ -3,7 +3,14 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mountain, Search, Menu, User, LogOut, LayoutDashboard } from "lucide-react";
+import {
+  Mountain,
+  Search,
+  Menu,
+  User,
+  LogOut,
+  LayoutDashboard,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +30,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import ThemeToggle from "./ThemeToggle";
 
 // Role & User Types for Modular Auth Integration
 export type UserRole = "CUSTOMER" | "PROVIDER" | "ADMIN";
@@ -78,7 +86,6 @@ export function Navbar({ user, onLogout }: NavbarProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-\[backdrop-filter\]\:bg-background\/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        
         {/* Left Side: Brand Logo */}
         <div className="flex items-center gap-6">
           <Link
@@ -117,14 +124,15 @@ export function Navbar({ user, onLogout }: NavbarProps) {
 
         {/* Right Side: Desktop Actions & User Menu */}
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="ghost" size="icon" aria-label="Search Gear" className="text-muted-foreground hover:text-foreground">
-            <Search className="h-4 w-4" />
-          </Button>
+          <ThemeToggle/>
 
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0 ring-offset-background transition-opacity hover:opacity-90">
+                <Button
+                  variant="ghost"
+                  className="relative h-9 w-9 rounded-full p-0 ring-offset-background transition-opacity hover:opacity-90"
+                >
                   <Avatar className="h-9 w-9 border border-border">
                     <AvatarImage src={user.avatarUrl} alt={user.name} />
                     <AvatarFallback className="bg-primary/10 text-primary font-semibold text-xs">
@@ -136,13 +144,20 @@ export function Navbar({ user, onLogout }: NavbarProps) {
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                    <p className="text-sm font-medium leading-none">
+                      {user.name}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {user.email}
+                    </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href={getDashboardHref(user.role)} className="cursor-pointer">
+                  <Link
+                    href={getDashboardHref(user.role)}
+                    className="cursor-pointer"
+                  >
                     <LayoutDashboard className="mr-2 h-4 w-4" />
                     <span>Dashboard</span>
                   </Link>
@@ -177,17 +192,29 @@ export function Navbar({ user, onLogout }: NavbarProps) {
 
         {/* Mobile Navigation Drawer */}
         <div className="flex items-center gap-2 md:hidden">
-          <Button variant="ghost" size="icon" aria-label="Search Gear" className="text-muted-foreground">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Search Gear"
+            className="text-muted-foreground"
+          >
             <Search className="h-5 w-5" />
           </Button>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open Navigation Menu">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open Navigation Menu"
+              >
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-75 sm:87.5 flex flex-col justify-between">
+            <SheetContent
+              side="right"
+              className="w-75 sm:87.5 flex flex-col justify-between"
+            >
               <div>
                 <SheetHeader className="text-left border-b pb-4">
                   <SheetTitle>
@@ -240,8 +267,12 @@ export function Navbar({ user, onLogout }: NavbarProps) {
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex flex-col">
-                        <span className="text-sm font-medium leading-tight">{user.name}</span>
-                        <span className="text-xs text-muted-foreground">{user.email}</span>
+                        <span className="text-sm font-medium leading-tight">
+                          {user.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {user.email}
+                        </span>
                       </div>
                     </div>
                     <Separator />
@@ -281,10 +312,19 @@ export function Navbar({ user, onLogout }: NavbarProps) {
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2">
-                    <Button variant="outline" className="w-full" asChild onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      asChild
+                      onClick={() => setIsOpen(false)}
+                    >
                       <Link href="/auth/login">Login</Link>
                     </Button>
-                    <Button className="w-full" asChild onClick={() => setIsOpen(false)}>
+                    <Button
+                      className="w-full"
+                      asChild
+                      onClick={() => setIsOpen(false)}
+                    >
                       <Link href="/auth/register">Get Started</Link>
                     </Button>
                   </div>
@@ -293,7 +333,6 @@ export function Navbar({ user, onLogout }: NavbarProps) {
             </SheetContent>
           </Sheet>
         </div>
-
       </div>
     </header>
   );
