@@ -180,9 +180,14 @@ export function Navbar({ user, onLogout }: NavbarProps) {
             </DropdownMenu>
           ) : (
             <>
-              <Button variant="ghost" asChild size="sm">
-                <Link href="/auth/login">Login</Link>
+               <Button variant="ghost" asChild size="sm">
+                <Link href="/register">Register</Link>
               </Button>
+              
+              <Button variant="ghost" asChild size="sm">
+                <Link href="/login">Login</Link>
+              </Button>
+           
               <Button asChild size="sm">
                 <Link href="/auth/register">Get Started</Link>
               </Button>
