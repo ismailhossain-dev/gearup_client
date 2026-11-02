@@ -1,9 +1,10 @@
-import React from 'react'
 
 const GearPage = () => {
   return (
-    <div>GearPage</div>
-  )
-}
+  <div>
+    Gear Page
+  </div>
+  );
+};
 
-export default GearPage
+export default GearPage;
