@@ -27,8 +27,9 @@ const GearCard = ({ gear }: GearCardProps) => {
         <Image
           src={image}
           alt={name || "gear image"}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          width="200"
+          height="200"
+          className="object-cover transition-transform duration-500 group-hover:scale-105 w-full h-full"
         />
         {/* Subtle Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80" />
